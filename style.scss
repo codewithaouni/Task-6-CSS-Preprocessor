@@ -1,0 +1,158 @@
+// 1. Variables
+$primary-color: #4A90E2;
+$secondary-color: #FFD700;
+$light-blue: #EAF2F8;
+$text-color: #333;
+$background-color: #f9f9f9;
+$white: #fff;
+$shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+$font-stack: 'Arial', sans-serif;
+
+// 2. Mixin for common box styles
+@mixin box-style($border-color: #ddd, $padding: 1.5rem) {
+  background-color: $white;
+  padding: $padding;
+  border: 1px solid $border-color;
+  border-radius: 10px;
+  box-shadow: $shadow;
+  transition: transform 0.3s ease;
+}
+
+// 3. Function to darken colors
+@function darken-color($color, $amount: 10%) {
+  @return darken($color, $amount);
+}
+
+// 4. Global Styles
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $font-stack;
+  line-height: 1.6;
+  background-color: $background-color;
+  color: $text-color;
+}
+
+// 5. Header Styling (Nesting and Variables)
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: $primary-color;
+  color: $white;
+
+  .navbar {
+    ul {
+      display: flex;
+      list-style: none;
+
+      li {
+        margin-right: 1.5rem;
+
+        a {
+          color: $white;
+          text-decoration: none;
+          font-weight: bold;
+          transition: color 0.3s ease;
+
+          &:hover {
+            color: $secondary-color;
+          }
+        }
+      }
+    }
+  }
+
+  .cta-button {
+    background-color: $secondary-color;
+    color: $primary-color;
+    padding: 0.5rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: darken-color($secondary-color, 10%);
+    }
+  }
+}
+
+// 6. Container for Main and Sidebar
+.container {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+// 7. Main Content Area (Grid Layout)
+main {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+
+  .featured {
+    grid-column: span 3;
+    @include box-style();
+
+    &:hover {
+      transform: scale(1.03);
+    }
+  }
+
+  article {
+    @include box-style();
+
+    &:hover {
+      transform: scale(1.03);
+    }
+  }
+}
+
+// 8. Sidebar Styling
+.sidebar {
+  background-color: $light-blue;
+  @include box-style();
+}
+
+// 9. Footer (Nesting and Flexbox)
+footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: $primary-color;
+  color: $white;
+
+  .social-links {
+    a {
+      margin-right: 1rem;
+      color: $secondary-color;
+      text-decoration: none;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: $white;
+      }
+    }
+  }
+}
+
+// 10. Responsive Design with Media Queries
+@media (max-width: 768px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+
+  main {
+    grid-template-columns: 1fr;
+  }
+}
